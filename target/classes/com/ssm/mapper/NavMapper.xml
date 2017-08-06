@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >    
+<mapper namespace="com.ssm.dao.INavDao" >   
+	 <resultMap id="BaseResultMap" type="com.ssm.dto.Nav">  
+        <result column="id" property="id" jdbcType="INTEGER" /> 
+        <result column="cid" property="cid" jdbcType="INTEGER" />    
+        <result column="ifshow" property="ifshow" jdbcType="INTEGER" />    
+        <result column="vieworder" property="vieworder" jdbcType="INTEGER" />    
+        <result column="opennew" property="opennew" jdbcType="INTEGER" />    
+        <result column="name" property="name" jdbcType="VARCHAR" />    
+        <result column="url" property="url" jdbcType="VARCHAR" /> 
+        <result column="type" property="type" jdbcType="VARCHAR" />   
+    </resultMap>    
+    
+    <sql id="Base_Column_List">    
+        id,cid,ifshow,vieworder,opennew,name,url,type
+    </sql>    
+    
+    <!-- 查询用户-->    
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap"    
+        parameterType="java.lang.Integer">    
+        select    
+        <include refid="Base_Column_List" />    
+        from lwb_nav
+        where id = #{id,jdbcType=INTEGER}    
+    </select>   
+    <!-- 查询用户-->    
+    <select id="queryBySelectKey" resultMap="BaseResultMap" parameterType="java.util.List">   
+        select    
+        <include refid="Base_Column_List" />    
+        from lwb_nav where ifshow=1 and  id in  <foreach collection="list" index="key" item="navid" open="(" separator="," close=")">    
+             #{navid,jdbcType=INTEGER}    
+        </foreach>  
+    </select>     
+    <!-- 查询用户-->    
+    <select id="queryBySelectKeyshow" resultMap="BaseResultMap" parameterType="java.util.List">   
+        select    
+        <include refid="Base_Column_List" />    
+        from lwb_nav where ifshow=1 and type="left" and  id in  <foreach collection="list" index="key" item="navid" open="(" separator="," close=")">    
+             #{navid,jdbcType=INTEGER}    
+        </foreach>  
+    </select>     
+    <!-- 查询用户-->    
+    <select id="getallnav" resultMap="BaseResultMap"    
+        parameterType="java.lang.Integer">    
+        select    
+        <include refid="Base_Column_List" />    
+        from lwb_nav
+    </select>  
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >    
+<mapper namespace="com.ssm.dao.IAdminDao" >   
+ <resultMap id="BaseResultMap" type="com.ssm.dto.Admin">    
+        <result column="user_id" property="user_id" jdbcType="INTEGER" /> 
+        <result column="role_id" property="role_id" jdbcType="INTEGER" />    
+        <result column="user_name" property="user_name" jdbcType="VARCHAR" />    
+        <result column="email" property="email" jdbcType="VARCHAR" />  
+        <result column="password" property="password" jdbcType="VARCHAR" />  
+        <result column="add_time" property="add_time" jdbcType="VARCHAR" />  
+        <result column="last_login" property="last_login" jdbcType="VARCHAR" /> 
+        <result column="last_ip" property="last_ip" jdbcType="VARCHAR" /> 
+        <result column="action_list" property="action_list" jdbcType="VARCHAR" /> 
+        <result column="nav_list" property="nav_list" jdbcType="VARCHAR" />    
+    </resultMap>    
+    
+    <sql id="Base_Column_List">    
+        user_id,role_id,user_name,email,password,add_time,last_login,last_ip,action_list,nav_list 
+    </sql>    
+    
+    <!-- 查询用户-->    
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap"    
+        parameterType="java.lang.Integer">    
+        select    
+        <include refid="Base_Column_List" />    
+        from lwb_admin_user
+        where user_id = #{id,jdbcType=INTEGER}    
+    </select> 
+     <!-- 查询用户-->    
+    <select id="getAdminByName" resultMap="BaseResultMap"    
+        parameterType="java.lang.String">    
+        select    
+        <include refid="Base_Column_List" />    
+        from lwb_admin_user
+        where user_name = #{name,jdbcType=VARCHAR}    
+    </select> 
+       
+</mapper>
